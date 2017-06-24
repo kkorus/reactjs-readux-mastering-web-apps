@@ -27,7 +27,7 @@ class App extends React.Component<{}, any> {
     if (key === 'Enter') {
       this.search();
     }
-  }
+  };
 
   search = (): void => {
     this.setState({ artist: searchResponse.artists.items[0] });
