@@ -1,10 +1,16 @@
 import * as React from 'react';
 import { firebaseApp } from '../firebase';
-import { RouteComponentProps } from 'react-router-dom';
+import { connect } from 'react-redux';
+// import { RouteComponentProps } from 'react-router-dom';
+import AddGoal from './AddGoal';
 
-interface IAppProps extends RouteComponentProps<any> { }
+// interface IAppProps extends RouteComponentProps<{}> { }
 
-class App extends React.Component<IAppProps, null> {
+class App extends React.Component<any, any> {
+  constructor(props: any) {
+    super(props);
+  };
+
   signOut = () => {
     firebaseApp.auth().signOut();
     this.props.history.push("/");
@@ -14,7 +20,8 @@ class App extends React.Component<IAppProps, null> {
     return (
       <div>
         App
-       <button
+        <AddGoal />
+        <button
           className="btn btn-danger"
           onClick={this.signOut}
         >
@@ -24,4 +31,9 @@ class App extends React.Component<IAppProps, null> {
   }
 }
 
-export default App;
+let mapStateToProps = (state: any) => {
+  console.log('state', state);
+  return {};
+}
+
+export default connect(mapStateToProps, {})(App);

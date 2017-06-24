@@ -7,9 +7,9 @@ let user = {
 export default (state = user, action: any) => {
     switch (action.type) {
         case SIGNED_IN:
-            const { email } = action;
+            const { payload } = action;
             user = {
-                email: email
+                email: payload
             }
 
             return user;

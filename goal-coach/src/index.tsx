@@ -8,6 +8,7 @@ import SingUp from './components/SignUp';
 import SignIn from './components/SignIn';
 import { firebaseApp } from './firebase';
 import reducer from './reducers/index';
+import { logUser } from './actions/index';
 
 const store = createStore(reducer);
 
@@ -18,6 +19,8 @@ ReactDOM.render(
 				<Route exact path="/" render={(routeProps: RouteComponentProps<any>) => {
 					firebaseApp.auth().onAuthStateChanged((user: firebase.User) => {
 						if (user) {
+							const { email } = user;
+							store.dispatch(logUser(email || ""));
 							routeProps.history.push("/app");
 						}
 						else {

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { firebaseApp } from '../firebase';
 
-interface ISingInPros { };
+// interface ISingInPros { };
 
 type SignUpError = { message: string };
 
@@ -12,7 +12,7 @@ interface ISingInState {
     error: SignUpError
 };
 
-class SingIn extends React.Component<ISingInPros, ISingInState> {
+class SingIn extends React.Component<any, ISingInState> {
     constructor(props: any) {
         super(props);
         this.state = {
@@ -27,6 +27,7 @@ class SingIn extends React.Component<ISingInPros, ISingInState> {
     signIn = () => {
         const { email, password } = this.state;
         firebaseApp.auth().signInWithEmailAndPassword(email, password)
+            // .then(() => { this.props.history.push("/app") })
             .catch((error: Error) => {
                 this.setState({ error: error });
             });
