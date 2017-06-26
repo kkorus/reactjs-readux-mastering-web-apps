@@ -12,25 +12,31 @@ import { logUser } from './actions/index';
 
 const store = createStore(reducer);
 
+function dispatchUser(routeProps: RouteComponentProps<any>) {
+	firebaseApp.auth().onAuthStateChanged((user: firebase.User) => {
+		if (user) {
+			const { email } = user;
+			store.dispatch(logUser(email || ""));
+			routeProps.history.push("/app");
+		}
+		else {
+			routeProps.history.replace("/signin");
+		}
+	});
+}
+
 ReactDOM.render(
 	<Provider store={store}>
 		<Router>
 			<Switch>
 				<Route exact path="/" render={(routeProps: RouteComponentProps<any>) => {
-					firebaseApp.auth().onAuthStateChanged((user: firebase.User) => {
-						if (user) {
-							const { email } = user;
-							store.dispatch(logUser(email || ""));
-							routeProps.history.push("/app");
-						}
-						else {
-							routeProps.history.replace("/signin");
-						}
-					});
-
+					dispatchUser(routeProps);
 					return null;
 				}} />
-				<Route path="/app" exact={true} render={(routeProps: RouteComponentProps<any>) => <App {...routeProps} />} />
+				<Route path="/app" exact={true} render={(routeProps: RouteComponentProps<any>) => {
+					dispatchUser(routeProps);
+					return <App {...routeProps} />
+				}} />
 				<Route path="/signin" exact={true} render={() => <SignIn />} />
 				<Route path="/signup" exact={true} render={() => <SingUp />} />
 			</Switch>

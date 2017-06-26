@@ -3,7 +3,7 @@ import { firebaseApp } from '../firebase';
 import { connect } from 'react-redux';
 // import { RouteComponentProps } from 'react-router-dom';
 import AddGoal from './AddGoal';
-
+import GoalList from './GoalList';
 // interface IAppProps extends RouteComponentProps<{}> { }
 
 class App extends React.Component<any, any> {
@@ -21,6 +21,7 @@ class App extends React.Component<any, any> {
       <div>
         App
         <AddGoal />
+        <GoalList />
         <button
           className="btn btn-danger"
           onClick={this.signOut}

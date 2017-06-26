@@ -2,15 +2,7 @@ import * as React from 'react';
 import { goalRef } from '../firebase';
 import { connect } from 'react-redux';
 
-interface ComponentNameProps {
-    email: string;
-};
-
-interface ComponentNameState {
-    title: string
-};
-
-class AddGoal extends React.Component<ComponentNameProps, ComponentNameState> {
+class AddGoal extends React.Component<any, any> {
     constructor(props: any) {
         super(props);
         this.state = {
@@ -20,7 +12,7 @@ class AddGoal extends React.Component<ComponentNameProps, ComponentNameState> {
 
     addGoal = () => {
         const { title } = this.state;
-        const { email } = this.props;
+        const { email } = this.props.user;
         goalRef.push({ email: email, title: title });
     };
 
@@ -56,9 +48,10 @@ class AddGoal extends React.Component<ComponentNameProps, ComponentNameState> {
 }
 
 let mapStateToProps = (state: any) => {
-    const { email } = state;
+    const { user } = state;
+    console.log('state in addgoals.jsx', state);
     return {
-        email
+        user
     };
 };
 
