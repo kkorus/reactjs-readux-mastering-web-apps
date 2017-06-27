@@ -1,10 +1,8 @@
 import * as React from 'react';
 import { firebaseApp } from '../firebase';
 import { connect } from 'react-redux';
-// import { RouteComponentProps } from 'react-router-dom';
 import AddGoal from './AddGoal';
 import GoalList from './GoalList';
-// interface IAppProps extends RouteComponentProps<{}> { }
 
 class App extends React.Component<any, any> {
   constructor(props: any) {
@@ -18,10 +16,13 @@ class App extends React.Component<any, any> {
 
   render() {
     return (
-      <div>
-        App
+      <div style={{ margin: '5px' }}>
+        <h3>Goal Coach</h3>
         <AddGoal />
+        <hr />
+        <h4>Goals</h4>
         <GoalList />
+        <hr />
         <button
           className="btn btn-danger"
           onClick={this.signOut}
