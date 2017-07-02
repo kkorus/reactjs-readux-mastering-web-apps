@@ -6,12 +6,13 @@ import GoalItem from './GoalItem';
 
 class GoalList extends React.Component<any, any> {
     componentDidMount() {
-        let goals: { email: string, title: string }[] = [];
+        let goals: { email: string, title: string, serverKey: string }[] = [];
         goalRef.on('value', snap => {
             if (snap) {
                 snap.forEach(goal => {
                     const { email, title } = goal.val();
-                    goals.push({ email, title });
+                    const serverKey = goal.key || "";
+                    goals.push({ email, title, serverKey });
                     return true;
                 });
             }
@@ -25,7 +26,6 @@ class GoalList extends React.Component<any, any> {
             <div>
                 {
                     this.props.goals((goal: any, index: number) => {
-                        return <GoalItem key={index} goal={goal} />
                         return <GoalItem key={index} goal={goal} />
                     })
                 }
